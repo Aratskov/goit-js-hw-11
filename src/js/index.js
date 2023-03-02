@@ -1,5 +1,5 @@
-import ImageApiService from "./api-server";
-import { cardImage } from "./cardimage";
+import ImageApiService from './api-server';
+import { cardImage } from './cardimage';
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 import '../css/style.css';
@@ -9,42 +9,41 @@ const galleryRef = document.querySelector('.gallery');
 const loadMore = document.querySelector('.load-more');
 
 form.addEventListener('submit', searchItem);
-loadMore.addEventListener('click', onLoadMore)
-
+loadMore.addEventListener('click', onLoadMore);
 
 const imageApiService = new ImageApiService();
 
-const gallery = new SimpleLightbox('.gallery a', {
-    // captionsData: 'alt',
-    // captionDelay: 250
+const gallery = new SimpleLightbox('.gallery a');
+
+function searchItem(event) {
+  event.preventDefault();
+
+  imageApiService.query = event.currentTarget.searchQuery.value;
+  imageApiService.resetPage();
+
+  if (imageApiService.query === '') {
+    return;
+  }
+
+  imageApiService.fetchArticles().then(image => {
+    clearGallery();
+    insertImage(image);
+    gallery.refresh();
   });
-
-function searchItem(event){
-    event.preventDefault()
-    imageApiService.query = event.currentTarget.searchQuery.value;
-    imageApiService.resetPage();
-    if(imageApiService.query === ''){
-    return
-    }
-    
-    imageApiService.fetchArticles().then(image =>{
-        clearGallery()
-        appendImage(image)
-    })
-    gallery.refresh()
-    // const gallery = new SimpleLightbox('.photo-card a').refresh();
-};
-
-
-
-function onLoadMore(){
-    imageApiService.fetchArticles().then(appendImage)
 }
 
-function appendImage(image){
-galleryRef.insertAdjacentHTML('beforeend', cardImage(image))
+function onLoadMore() {
+  imageApiService.fetchArticles().then(image => {
+    insertImage(image);
+    gallery.refresh();
+  });
 }
 
-function clearGallery(){
-galleryRef.innerHTML=''
+function insertImage(image) {
+  gallery.refresh();
+  galleryRef.insertAdjacentHTML('beforeend', cardImage(image));
+}
+
+function clearGallery() {
+  galleryRef.innerHTML = '';
 }
