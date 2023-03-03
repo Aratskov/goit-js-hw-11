@@ -36,6 +36,7 @@ button {
   height: 40px;
   min-width: 160px;
   border-radius: 25px;
+  cursor: pointer;
 }
 
 .load {
@@ -82,4 +83,15 @@ img {
   flex-direction: column;
   row-gap: 5px;
   text-align: center;
+}
+
+.is-hidden{
+opacity: 0;
+visibility: hidden;
+pointer-events: none;
+position: absolute;
+}
+
+.load-more{
+margin-bottom: 30px;
 }
