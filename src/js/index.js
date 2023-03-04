@@ -65,7 +65,9 @@ function promisMessage(data) {
 async function fetchImages() {
   try {
     const data = await promisRenderImages();
-    return loadingImages(data);
+    // const loading = await loadingImages(data)
+    loadingImages(data);
+    return data
   } catch (error) {
     console.log(error);
   }
