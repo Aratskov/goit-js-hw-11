@@ -1,5 +1,7 @@
 import ImageApiService from './api-server';
-import promisMessage from './message';
+// import promisMessage from './message';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
+
 import { scroll } from './scroll';
 import { cardImage } from './cardimage';
 import SimpleLightbox from 'simplelightbox';
@@ -29,14 +31,35 @@ function searchItem(event) {
   fetchImages();
 }
 
+
 async function promisRenderImages() {
   try {
     const data = await imageApiService.fetchArticles();
+    console.log(data)
     return promisMessage(data);
   } catch {
     console.log(error);
-    console.log(data);
   }
+}
+
+function promisMessage(data) {
+  if (data.total === 0) {
+    Notify.failure(
+      'Sorry, there are no images matching your search query. Please try again.'
+    );
+  } else {
+    this.length += data.hits.length;
+  }
+
+  if (data.total === this.length && data.total > 1) {
+    Notify.info(`We're sorry, but you've reached the end of search results.`);
+  }
+
+  if (data.total > 1 || this.length <= 40) {
+    Notify.success(`Hooray! We found ${data.total} images.`);
+  }
+
+  return data.hits;
 }
 
 async function fetchImages() {

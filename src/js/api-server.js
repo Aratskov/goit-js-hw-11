@@ -14,6 +14,7 @@ export default class ImageApiService {
     const response = await axios.get(url);
     this.page += 1;
 
+    // return this.page += 1;
     return response.data;
   }
 

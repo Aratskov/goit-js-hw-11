@@ -13,7 +13,7 @@ export default function promisMessage(data) {
     Notify.info(`We're sorry, but you've reached the end of search results.`);
   }
 
-  if (this.page === 1 && data.total > 1) {
+  if (data.total > 1) {
     Notify.success(`Hooray! We found ${data.total} images.`);
   }
 
