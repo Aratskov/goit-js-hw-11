@@ -1,23 +1,23 @@
 class LoadMoreBtn {
-    constructor({ selektor, hidden = false }) {
-        this.refs = this.getRefs(selektor);
+  constructor({ selector, hidden = false }) {
+    this.refs = this.getRefs(selector);
 
-        hidden && this.hide();
-    }
+    hidden && this.hide();
+  }
 
-    getRefs(selektor) {
-        const refs = {};
-        refs.button = document.querySelector(selektor);
-        return refs;
-    }
+  getRefs(selector) {
+    const refs = {};
+    refs.button = document.querySelector(selector);
+    return refs;
+  }
 
-    show() {
-        this.refs.button.classList.remove('is-hidden');
-    }
+  show() {
+    this.refs.button.classList.remove('is-hidden');
+  }
 
-    hide() {
-        this.refs.button.classList.add('is-hidden');
-    }
+  hide() {
+    this.refs.button.classList.add('is-hidden');
+  }
 }
 
 export { LoadMoreBtn };
