@@ -6,7 +6,6 @@ import SimpleLightbox from 'simplelightbox';
 import { LoadMoreBtn } from './btn';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 import '../css/style.css';
-
 const form = document.querySelector('#search-form');
 const galleryRef = document.querySelector('.gallery');
 const loadingMore = document.querySelector('.load-more');
@@ -36,7 +35,7 @@ async function promisRenderImages() {
     return promisMessage(data);
   } catch {
     console.log(error);
-    console.log(data)
+    console.log(data);
   }
 }
 
