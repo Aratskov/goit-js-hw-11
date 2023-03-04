@@ -43,10 +43,10 @@ async function promisRenderImages() {
 }
 
 function promisMessage(data) {
-  // if (data.total === 0) {
-  //   Notify.failure(
-  //     'Sorry, there are no images matching your search query. Please try again.'
-  //   );
+  if (data.total === 0) {
+    Notify.failure(
+      'Sorry, there are no images matching your search query. Please try again.'
+    );
   // } else {
   //   this.length += data.hits.length;
   // }
@@ -57,16 +57,15 @@ function promisMessage(data) {
 
   // if (data.total > 1 || this.length <= 40) {
   //   Notify.success(`Hooray! We found ${data.total} images.`);
-  // }
+  }
 
   return data.hits;
 }
 
 async function fetchImages() {
   try {
-    const renderHits = await promisRenderImages().then(data =>loadingImages(data));
-    // const loading = await loadingImages(data)
-    return renderHits;
+    const renderHits = await promisRenderImages();
+    return loadingImages(renderHits);
   } catch (error) {
     console.log(error);
   }
