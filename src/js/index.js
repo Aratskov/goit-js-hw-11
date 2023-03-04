@@ -35,7 +35,6 @@ function searchItem(event) {
 async function promisRenderImages() {
   try {
     const data = await imageApiService.fetchArticles();
-    console.log(data)
     return promisMessage(data);
   } catch {
     console.log(error);
@@ -47,17 +46,17 @@ function promisMessage(data) {
     Notify.failure(
       'Sorry, there are no images matching your search query. Please try again.'
     );
-  // } else {
-  //   this.length += data.hits.length;
-  // }
+  } else {
+    this.length += data.hits.length;
+  }
 
-  // if (data.total === this.length && data.total > 1) {
-  //   Notify.info(`We're sorry, but you've reached the end of search results.`);
-  // }
+  if (data.total === this.length && data.total > 1) {
+    Notify.info(`We're sorry, but you've reached the end of search results.`);
+  }
 
   // if (data.total > 1 || this.length <= 40) {
   //   Notify.success(`Hooray! We found ${data.total} images.`);
-  }
+  // }
 
   return data.hits;
 }
