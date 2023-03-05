@@ -55,7 +55,7 @@ function promisMessage(data) {
   //   Notify.info(`We're sorry, but you've reached the end of search results.`);
   // }
 
-  if (data.total > 1 ) {
+  if (data.total > 1 && this.page === 1) {
     Notify.success(`Hooray! We found ${data.total} images.`);
   }
 
