@@ -6,7 +6,7 @@ export default class ImageApiService {
   constructor() {
     this.searchQuery = '';
     this.page = 1;
-    this.length = 0;
+    // this.length = 0;
   }
 
   async fetchArticles() {

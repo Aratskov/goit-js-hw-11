@@ -48,11 +48,12 @@ function promisMessage(data) {
     );
   } else {
     this.length += data.hits.length;
+    console.log(this.length)
   }
 
-  if (data.total === this.length && data.total > 1) {
-    Notify.info(`We're sorry, but you've reached the end of search results.`);
-  }
+  // if (data.total === this.length && data.total > 1) {
+  //   Notify.info(`We're sorry, but you've reached the end of search results.`);
+  // }
 
   // if (data.total > 1 || this.length <= 40) {
   //   Notify.success(`Hooray! We found ${data.total} images.`);
