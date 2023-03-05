@@ -6,15 +6,15 @@ export default function promisMessage(data) {
       'Sorry, there are no images matching your search query. Please try again.'
     );
   } else {
-    this.length += data.hits.length;
+    currentLenght += data.hits.length;
   }
 
-  if (data.total === this.length && data.total > 1) {
-    Notify.info(`We're sorry, but you've reached the end of search results.`);
-  }
-
-  if (data.total > 1) {
+  if (currentLenght <= 40 && data.total > 1) {
     Notify.success(`Hooray! We found ${data.total} images.`);
+  }
+
+  if (data.total === currentLenght && data.total > 1) {
+    Notify.info(`We're sorry, but you've reached the end of search results.`);
   }
 
   return data.hits;

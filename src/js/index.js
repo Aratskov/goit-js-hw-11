@@ -1,7 +1,5 @@
 import ImageApiService from './api-server';
-// import promisMessage from './message';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
-
 import { scroll } from './scroll';
 import { cardImage } from './cardimage';
 import SimpleLightbox from 'simplelightbox';
@@ -16,13 +14,14 @@ const imageApiService = new ImageApiService();
 const loadMoreBtn = new LoadMoreBtn({ selector: '.load-more', hidden: true });
 
 const gallery = new SimpleLightbox('.gallery a');
+let currentLenght = 0;
 
 function searchItem(event) {
   event.preventDefault();
 
   imageApiService.query = event.currentTarget.searchQuery.value;
   imageApiService.resetPage();
-
+  currentLenght = 0;
   if (imageApiService.query === '') {
     return;
   }
@@ -30,7 +29,6 @@ function searchItem(event) {
   clearGallery();
   fetchImages();
 }
-
 
 async function promisRenderImages() {
   try {
@@ -46,18 +44,17 @@ function promisMessage(data) {
     Notify.failure(
       'Sorry, there are no images matching your search query. Please try again.'
     );
-  // } else {
-  //   this.length += data.hits.length;
-  //   console.log(this.length)
+  } else {
+    currentLenght += data.hits.length;
   }
 
-  // if (data.total === this.length && data.total > 1) {
-  //   Notify.info(`We're sorry, but you've reached the end of search results.`);
-  // }
-
-  if (data.total > 1 && this.page === 1) {
+  if (currentLenght <= 40 && data.total > 1) {
     Notify.success(`Hooray! We found ${data.total} images.`);
   }
+
+  if (data.total === currentLenght && data.total > 1) {
+    Notify.info(`We're sorry, but you've reached the end of search results.`);
+  } 
 
   return data.hits;
 }
